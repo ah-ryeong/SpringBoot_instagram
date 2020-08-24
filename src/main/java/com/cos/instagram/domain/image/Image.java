@@ -3,6 +3,7 @@ package com.cos.instagram.domain.image;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,7 @@ public class Image {
 	private int id;
 	private String location;
 	private String caption; // content 설명
+	@Column(length = 10000)
 	private String imgUrl; // 이미지경로
 	
 	// Image를 select하면 한명의 User가 딸려옴
