@@ -1,4 +1,4 @@
-package com.cos.instagram.test;
+package com.cos.instagram.controller;
 
 import java.util.ArrayList;
 import java.util.List;
