@@ -2,6 +2,8 @@ package com.cos.instagram.config.auth;
 
 import java.util.function.Supplier;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private HttpSession session;
 	
 	@Value("${cos.secret}")
 	private String cosSecret;
@@ -72,6 +77,7 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 				return userRepository.save(user);
 			}
 		});
+		session.setAttribute("loginUser", new LoginUser(userEntity));
 		return userEntity;
 	}
 	
