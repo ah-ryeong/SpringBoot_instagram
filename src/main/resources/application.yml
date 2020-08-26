@@ -36,6 +36,16 @@ spring:
       name: cos
       password: 1234
       
+    oauth2:
+      client:
+        registration:
+          facebook:
+            client-id: 1176498252715446
+            client-secret: 006f6435a2343bb6845c4ee7dbf43330
+            scope:
+            - email
+            - public_profile
+      
 cos: # like 변수, 자바에서 찾기 쉽게 커스텀
   secret: 홍차
 
