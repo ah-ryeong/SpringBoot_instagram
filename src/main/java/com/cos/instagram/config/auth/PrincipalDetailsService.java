@@ -1,5 +1,7 @@
 package com.cos.instagram.config.auth;
 
+import java.util.function.Function;
+
 import javax.mail.Session;
 import javax.servlet.http.HttpSession;
 
@@ -31,12 +33,17 @@ public class PrincipalDetailsService implements UserDetailsService {
 		
 		log.info("loadUserByUsername : username : " + username);
 		
-		User userEntity = userRepository.findByUsername(username).get();
-		
-		if (userEntity != null) {
-			System.out.println("User가 있습니다.");
-			session.setAttribute("loginUser", new LoginUser(userEntity));
-		}
+		User userEntity = userRepository.findByUsername(username)
+				.map(new Function<User, User>() {
+
+					@Override
+					public User apply(User t) {
+						session.setAttribute("loginUser", new LoginUser(t));
+
+						return t;
+					}
+					
+				}).orElse(null);
 		
 		return new PrincipalDetails(userEntity);
 	}
