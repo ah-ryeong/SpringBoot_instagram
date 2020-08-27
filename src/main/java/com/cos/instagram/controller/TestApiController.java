@@ -58,7 +58,7 @@ public class TestApiController {
 				.location("외국")
 				.caption(caption)
 				.user(userEntity)
-				.imgUrl("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150519_20%2Fposankwak_1432037415158nor7n_JPEG%2F35.jpg&type=sc960_832")
+				.imageUrl("https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20150519_20%2Fposankwak_1432037415158nor7n_JPEG%2F35.jpg&type=sc960_832")
 				.build();
 		
 		// 이미지를 먼저 save 해서 이미지를 영속화시켰음

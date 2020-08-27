@@ -37,7 +37,7 @@ public class Image {
 	private String location;
 	private String caption; // content 설명
 	@Column(length = 10000)
-	private String imgUrl; // 이미지경로
+	private String imageUrl; // 이미지경로
 	
 	// Image를 select하면 한명의 User가 딸려옴
 	// 1명만 들어오니까 시스템의 부하가 적음 , EAGER :join해서 가져옴

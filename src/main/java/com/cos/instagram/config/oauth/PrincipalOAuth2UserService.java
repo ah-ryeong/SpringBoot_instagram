@@ -1,4 +1,4 @@
-package com.cos.instagram.config.auth;
+package com.cos.instagram.config.oauth;
 
 import java.util.function.Supplier;
 
@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.cos.instagram.config.auth.PrincipalDetails;
+import com.cos.instagram.config.auth.dto.LoginUser;
 import com.cos.instagram.domain.user.User;
 import com.cos.instagram.domain.user.UserRepository;
 import com.cos.instagram.domain.user.UserRole;

@@ -12,8 +12,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.cos.instagram.config.auth.LoginUser;
 import com.cos.instagram.config.auth.LoginUserAnnotation;
+import com.cos.instagram.config.auth.dto.LoginUser;
 
 import lombok.RequiredArgsConstructor;
 
