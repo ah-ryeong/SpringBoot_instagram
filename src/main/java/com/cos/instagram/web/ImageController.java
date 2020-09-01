@@ -33,6 +33,7 @@ public class ImageController {
 			@LoginUserAnnotation LoginUser loginUser,
 			ImageReqDto imageReqDto) {
 
+		System.out.println("imageController : imageReqDto : " + imageReqDto.getFile().toString());
 		imageService.사진업로드(imageReqDto, loginUser.getId());
 
 		return "redirect:/";

@@ -59,19 +59,23 @@ public class PrincipalOAuth2UserService extends DefaultOAuth2UserService {
 		String provider = "facebook";
 		String providerId = oAuth2User.getAttribute("id");
 		String username = provider + "_" + providerId;
+		// 추가함
+		String name = oAuth2User.getAttribute("name");
 		String password = bCryptPasswordEncoder.encode(cosSecret);
 		String email = oAuth2User.getAttribute("email");
 		
 		// login할 때도 사실 OAuth에서 가져오는 정보이기 때문에 회원정보를 매번 업데이트 해주는 것이 좋다.
 		// 이때는 orElseGet전에 .map을 사용해서 update해주면 된다.
 		
-		User userEntity = userRepository.findByUsername(username).orElseGet(new Supplier<User>() {
+		User userEntity = userRepository.findByUsername(username)
+				.orElseGet(new Supplier<User>() {
 
 			@Override
 			public User get() {
 				// 회원가입
 				User user = User.builder()
 						.username(username)
+						.name(name)
 						.password(password)
 						.email(email)
 						.role(UserRole.USER)
