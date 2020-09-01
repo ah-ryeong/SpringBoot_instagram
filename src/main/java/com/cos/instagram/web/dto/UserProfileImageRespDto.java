@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class UserProfileImageRespDto {
 	private int id;
 	private String imageUrl;
-	private int userId;
 	private int likeCount;
 	private int commentCount;
 }

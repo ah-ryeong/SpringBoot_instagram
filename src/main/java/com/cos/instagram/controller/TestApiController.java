@@ -86,7 +86,7 @@ public class TestApiController {
 		// Jackson : Java Object를 Json으로 바꿔서 리턴해주는애
 	}
 	
-	@PostMapping("/test/api/image/{imageId}/like")
+	@GetMapping("/test/api/image/{imageId}/like")
 	public String imageLike(@PathVariable int imageId) {
 		
 		Image imageEntity = imageRepository.findById(imageId).get();
@@ -111,7 +111,7 @@ public class TestApiController {
 		return tagRepository.findAll();
 	}
 	
-	@PostMapping("/test/api/follow/{fromUserId}/{toUserId}")
+	@GetMapping("/test/api/follow/{fromUserId}/{toUserId}")
 	   public String follow(@PathVariable int fromUserId, @PathVariable int toUserId) {
 	      User fromUserEntity = userRepository.findById(fromUserId).get();
 	      User toUserEntity = userRepository.findById(toUserId).get();

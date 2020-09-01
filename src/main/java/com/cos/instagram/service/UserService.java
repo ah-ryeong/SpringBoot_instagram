@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.instagram.config.auth.dto.LoginUser;
 import com.cos.instagram.config.handler.ex.MyUserIdNotFoundException;
+import com.cos.instagram.domain.follow.FollowRepository;
 import com.cos.instagram.domain.image.ImageRepository;
 import com.cos.instagram.domain.user.User;
 import com.cos.instagram.domain.user.UserRepository;
@@ -27,10 +28,10 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-	private final ImageRepository imageRepository;
+	private final FollowRepository followRepository;
 	
 	@Transactional  // 트랜젝션 시작
 	public void 회원가입(JoinReqDto joinReqDto) {
@@ -61,21 +62,31 @@ public class UserService {
 						return new MyUserIdNotFoundException();
 					}
 				});
-		// 1. 이미지들과 전체 이미지 카운트
-		String q = "select im.id as id, im.imageUrl as imageUrl, im.userId as userId, (select count(*) from likes lk where lk.imageId = im.id) as likeCount, (select count(*) from comment ct where ct.imageId = im.id) as commentCount from image im where im.userId = ?";
+		// 1. 이미지들과 전체 이미지 카운트(dto받기)
+		StringBuilder sb = new StringBuilder();
+		sb.append("select im.id, im.imageUrl, ");
+		sb.append("(select count(*) from likes lk where lk.imageId = im.id) as likeCount, ");
+		sb.append("(select count(*) from comment ct where ct.imageId = im.id) as commentCount ");
+		sb.append("from image im where im.userId = ? ");
+		String q = sb.toString();
 		Query query = em.createNativeQuery(q, "UserProfileImageRespDtoMapping").setParameter(1, id);
 		List<UserProfileImageRespDto> imagesEntity = query.getResultList();
 		
 		imageCount = imagesEntity.size();
 		
-		// 2. 팔로우 수 (수정해야한다)
-		followerCount = 50;
-		followingCount = 100;
+		// 2. 팔로우 수
+		followerCount = followRepository.mCountByFollower(id);
+		followingCount = followRepository.mCountByFollowing(id);
 		
-		// 3. 최종 마무리
+		// 3. 팔로우 유무
+		followState = 
+				followRepository.mFollowState(loginUser.getId(), id) == 1 ? true : false;
+		
+		// 4. 최종 마무리
 		UserProfileRespDto userProfileRespDto = 
 				UserProfileRespDto.builder()
 					.pageHost(id==loginUser.getId())
+					.followState(followState)
 					.followerCount(followerCount)
 					.followingCount(followingCount)
 					.imageCount(imageCount)
