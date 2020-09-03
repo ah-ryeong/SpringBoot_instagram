@@ -24,4 +24,9 @@ public class UserController {
 		
 		return "user/profile";
 	}
+	
+	@GetMapping("/user/profileEdit")
+	public String profileEdit(@LoginUserAnnotation LoginUser loginUser) {
+		return "user/profile-edit";
+	}
 }
