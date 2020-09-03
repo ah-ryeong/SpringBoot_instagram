@@ -3,22 +3,39 @@ package com.cos.instagram.domain.user;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SqlResultSetMapping;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.cos.instagram.web.dto.JoinReqDto;
+import com.cos.instagram.web.dto.FollowRespDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@SqlResultSetMapping(
+		name = "FollowRespDtoMapping",
+		classes = @ConstructorResult(
+				targetClass = FollowRespDto.class,
+				columns = {
+						@ColumnResult(name="id", type = Integer.class),
+						@ColumnResult(name="username", type = String.class),
+						@ColumnResult(name="name", type = String.class),
+						@ColumnResult(name="profileImage", type = String.class),
+						@ColumnResult(name="followState", type = Boolean.class),
+						@ColumnResult(name="equalUserState", type = Boolean.class),
+				}
+		)
+)
 @Entity
 @Data
 @NoArgsConstructor
