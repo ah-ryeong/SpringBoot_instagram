@@ -38,4 +38,10 @@ public class ImageController {
 
 		return "redirect:/";
 	}
+	
+	@GetMapping("/image/explore") 
+	public String imageExplore() {
+		
+		return "image/explore";
+	}
 }
