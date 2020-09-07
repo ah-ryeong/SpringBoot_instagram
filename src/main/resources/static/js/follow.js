@@ -4,7 +4,7 @@ async function follow(pageUserId) {
 	});
 	let result = await response.text();
 	if(result === "ok"){
-		location.reload(); // 페이지 새로고침으로 변경(함수 재사용을 위해서)
+		location.reload(); //페이지 새로고침으로 변경(함수 재사용 위해)
 	}
 }
 

@@ -35,8 +35,11 @@ public class UserService {
 	
 	@Transactional  // 트랜젝션 시작
 	public void 회원가입(JoinReqDto joinReqDto) {
+		System.out.println("서비스 회원가입 들어옴");
+		System.out.println(joinReqDto);
 		String encPassword =
 		bCryptPasswordEncoder.encode(joinReqDto.getPassword());
+		System.out.println("encPassword : " + encPassword);
 		joinReqDto.setPassword(encPassword);
 		
 		// joinReqDto를 UserEntity로 바꾸는 작업이 필요함
