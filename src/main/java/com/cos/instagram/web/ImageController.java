@@ -24,17 +24,17 @@ public class ImageController {
 	
 	@GetMapping({"", "/", "/image/feed"})
 	public String feed(
-			@LoginUserAnnotation LoginUser loginUser,
+			String tag, @LoginUserAnnotation LoginUser loginUser,
 			Model model) {
 		System.out.println("loginUser : "+loginUser);
-		model.addAttribute("images", imageService.피드사진(loginUser.getId()));
+		model.addAttribute("images", imageService.피드사진(loginUser.getId(), tag));
 		return "image/feed";
 	}
 	
 	@GetMapping("/test/image/feed")
 	public @ResponseBody List<Image> testFeed(
-			@LoginUserAnnotation LoginUser loginUser) {
-		return imageService.피드사진(loginUser.getId());
+			String tag, @LoginUserAnnotation LoginUser loginUser) {
+		return imageService.피드사진(loginUser.getId(), tag);
 	}
 	
 	@GetMapping("/image/uploadForm")
